@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using FluentAssertions;
+using AwesomeAssertions;
 using TailBlazer.Domain.Formatting;
 using TailBlazer.Infrastructure.Virtualisation;
 using Xunit;

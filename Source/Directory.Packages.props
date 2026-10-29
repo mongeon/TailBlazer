@@ -9,17 +9,16 @@
     <PackageVersion Include="log4net" Version="2.0.15" />
     <PackageVersion Include="MaterialDesignExtensions" Version="3.3.0" />
     <PackageVersion Include="MaterialDesignThemes" Version="4.7.0-ci364" />
-    <PackageVersion Include="ReactiveUI.WPF" Version="18.3.1" />
     <PackageVersion Include="StructureMap" Version="4.7.1" />
   </ItemGroup>
 
   <ItemGroup Label="Tests">
-    <PackageVersion Include="coverlet.msbuild" Version="3.2.0" />
-    <PackageVersion Include="FluentAssertions" Version="6.8.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <!-- Newest versions that still support net6.0; they can move up once the projects leave .NET 6 -->
+    <PackageVersion Include="AwesomeAssertions" Version="9.6.0" />
+    <PackageVersion Include="coverlet.msbuild" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageVersion Include="Microsoft.Reactive.Testing" Version="5.0.0" />
-    <PackageVersion Include="xunit" Version="2.4.2" />
-    <PackageVersion Include="xunit.runner.console" Version="2.4.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
 </Project>

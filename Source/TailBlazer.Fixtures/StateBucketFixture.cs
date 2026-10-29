@@ -1,7 +1,7 @@
 ﻿#region Usings
 
 using System;
-using FluentAssertions;
+using AwesomeAssertions;
 using TailBlazer.Domain.Settings;
 using TailBlazer.Domain.StateHandling;
 using Xunit;

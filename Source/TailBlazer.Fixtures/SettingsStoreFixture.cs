@@ -1,6 +1,6 @@
 ﻿#region Usings
 
-using FluentAssertions;
+using AwesomeAssertions;
 using TailBlazer.Domain.Infrastructure;
 using TailBlazer.Domain.Settings;
 using Xunit;

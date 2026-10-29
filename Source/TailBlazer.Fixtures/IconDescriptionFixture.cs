@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using MaterialDesignThemes.Wpf;
 using TailBlazer.Views.Formatting;
 using Xunit;

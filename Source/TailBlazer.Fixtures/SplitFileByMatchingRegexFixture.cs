@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Text.RegularExpressions;
-using FluentAssertions;
+using AwesomeAssertions;
 using TailBlazer.Domain.Formatting;
 using Xunit;
 
