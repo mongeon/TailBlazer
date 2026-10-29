@@ -59,7 +59,7 @@ Ce document décrit le plan de modernisation de l'application. Chaque phase devr
 
 1. Revoir la lecture de fichiers (`FileHandling`) avec `FileStream` + `ArrayPool` / `Span<T>`. L'app vise des fichiers de 45 Go, donc il y a des gains possibles. Les mesurer avec BenchmarkDotNet.
 2. Utiliser `[GeneratedRegex]` pour les regex statiques.
-3. Publication : single-file + ReadyToRun (déjà présent), avec un workflow GitHub Release et un installeur (Velopack ou MSIX), ce qui permettrait des mises à jour automatiques.
+3. Publication : un installeur (Velopack ou MSIX), ce qui permettrait des mises à jour automatiques. Le workflow GitHub Release existe déjà (`.github/workflows/release.yml`) : pousser un tag `v*` publie un zip contenant l'exécutable autonome (`win-x64`, self-contained, single-file).
 4. Mettre à jour le README (badges, liens vers le fork).
 
 ## Phase 6 (optionnelle, à long terme) : multiplateforme
