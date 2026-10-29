@@ -18,6 +18,8 @@ Ce document décrit le plan de modernisation de l'application. Chaque phase devr
 
 ## Phase 0 : filet de sécurité (rapide, peu risquée)
 
+> ✅ Réalisée : workflow `.github/workflows/build.yml`, `Source/Directory.Build.props`, `Source/Directory.Packages.props`, `global.json`, et suppression de `ReadLinesFixture.cs` (il testait une API qui n'existe plus).
+
 1. Ajouter un workflow GitHub Actions (`windows-latest`) avec `dotnet build` et `dotnet test`. Sans ça, aucune régression ne sera détectée.
 2. Créer `Directory.Build.props` (paramètres communs : `LangVersion`, `ImplicitUsings`, `TreatWarningsAsErrors` progressif) et `Directory.Packages.props` (gestion centralisée des versions NuGet).
 3. Ajouter un `global.json` pour figer le SDK.
