@@ -5,7 +5,7 @@
 
   <ItemGroup Label="Application">
     <PackageVersion Include="Dragablz" Version="0.0.3.234" />
-    <PackageVersion Include="DynamicData" Version="7.12.1" />
+    <PackageVersion Include="DynamicData" Version="9.5.0" />
     <PackageVersion Include="log4net" Version="2.0.15" />
     <PackageVersion Include="MaterialDesignExtensions" Version="3.3.0" />
     <PackageVersion Include="MaterialDesignThemes" Version="4.7.0-ci364" />
@@ -13,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup Label="Tests">
-    <!-- Newest versions that still support net6.0; they can move up once the projects leave .NET 6 -->
     <PackageVersion Include="AwesomeAssertions" Version="9.6.0" />
-    <PackageVersion Include="coverlet.msbuild" Version="6.0.4" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageVersion Include="Microsoft.Reactive.Testing" Version="5.0.0" />
+    <PackageVersion Include="coverlet.msbuild" Version="10.1.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
+    <!-- 7.x requires System.Reactive 7, while DynamicData still depends on System.Reactive 6 -->
+    <PackageVersion Include="Microsoft.Reactive.Testing" Version="6.1.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.1" />
   </ItemGroup>
 </Project>

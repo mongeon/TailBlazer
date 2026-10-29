@@ -27,10 +27,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v6
         with:
-          # 6.0.x provides the runtime used by the tests until the app moves to a newer target framework
-          dotnet-version: |
-            6.0.x
-            10.0.x
+          global-json-file: global.json
 
       - name: Determine version
         id: version
@@ -60,7 +57,7 @@ jobs:
           -p:EnableCompressionInSingleFile=true
           -p:DebugType=none
 
-      # Framework-dependent: much smaller, requires the .NET Desktop Runtime to be installed
+      # Framework-dependent: much smaller, requires the .NET 10 Desktop Runtime to be installed
       - name: Publish framework-dependent executable
         run: >
           dotnet publish ${{ env.PROJECT }}
