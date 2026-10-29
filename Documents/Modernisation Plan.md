@@ -33,6 +33,8 @@ Ce document décrit le plan de modernisation de l'application. Chaque phase devr
 
 ## Phase 2 : runtime et dépendances
 
+> 🟡 Points 1 et 2 réalisés : `net10.0-windows`, DynamicData 9.5 (System.Reactive 6.1), paquets de test à jour, SDK 10 minimum dans `global.json`. Restent à faire : la migration des `Sort(...)` obsolètes de DynamicData vers `SortAndBind` (à faire avec soin, voir les commentaires sur les reset forcés pour Dragablz), Rx 7 (dès que DynamicData le supporte), puis les points 3 à 5 (UI).
+
 1. Passer à `net10.0-windows` (LTS). L'option prudente est `net8.0-windows`.
 2. Mettre à jour DynamicData (7 → 9.x) et System.Reactive (6.x). Attention aux changements cassants de DynamicData, qui est au cœur de l'app : les tests de la phase 0 sont essentiels ici.
 3. Mettre à jour MaterialDesignThemes vers 5.x stable. Les clés de style et de ressources ont changé, donc il faudra revoir les fichiers de `Themes/*.xaml`.
@@ -59,7 +61,7 @@ Ce document décrit le plan de modernisation de l'application. Chaque phase devr
 
 1. Revoir la lecture de fichiers (`FileHandling`) avec `FileStream` + `ArrayPool` / `Span<T>`. L'app vise des fichiers de 45 Go, donc il y a des gains possibles. Les mesurer avec BenchmarkDotNet.
 2. Utiliser `[GeneratedRegex]` pour les regex statiques.
-3. Publication : un installeur (Velopack ou MSIX), ce qui permettrait des mises à jour automatiques. Le workflow GitHub Release existe déjà (`.github/workflows/release.yml`) : pousser un tag `v*` publie deux zips `win-x64` single-file : un exécutable autonome (self-contained) et une variante plus légère qui dépend du .NET Desktop Runtime (framework-dependent).
+3. Publication : un installeur (Velopack ou MSIX), ce qui permettrait des mises à jour automatiques. Le workflow GitHub Release existe déjà (`.github/workflows/release.yml`) : pousser un tag `v*` publie deux zips `win-x64` single-file : un exécutable autonome (self-contained) et une variante plus légère qui dépend du .NET 10 Desktop Runtime (framework-dependent).
 4. Mettre à jour le README (badges, liens vers le fork).
 
 ## Phase 6 (optionnelle, à long terme) : multiplateforme
