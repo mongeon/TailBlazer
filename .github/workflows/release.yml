@@ -1,7 +1,8 @@
 name: Release
 
-# Pushing a tag such as v0.9.6 builds, tests and publishes a GitHub release with a standalone zip.
-# Running it manually only produces the zip as a workflow artifact.
+# Pushing a tag such as v0.9.6 builds, tests and publishes a GitHub release with two zips:
+# a standalone executable and a smaller framework-dependent one.
+# Running it manually only produces the zips as a workflow artifact.
 on:
   push:
     tags: [ 'v*' ]
@@ -45,35 +46,55 @@ jobs:
       - name: Test
         run: dotnet test ${{ env.SOLUTION }} --configuration Release
 
+      # Standalone: embeds the .NET runtime, nothing needs to be installed
       - name: Publish standalone executable
         run: >
           dotnet publish ${{ env.PROJECT }}
           --configuration Release
           --runtime ${{ env.RUNTIME }}
           --self-contained true
-          --output publish
+          --output publish/standalone
           -p:Version=${{ steps.version.outputs.version }}
           -p:PublishSingleFile=true
           -p:IncludeNativeLibrariesForSelfExtract=true
           -p:EnableCompressionInSingleFile=true
           -p:DebugType=none
 
-      - name: Create zip
+      # Framework-dependent: much smaller, requires the .NET Desktop Runtime to be installed
+      - name: Publish framework-dependent executable
+        run: >
+          dotnet publish ${{ env.PROJECT }}
+          --configuration Release
+          --runtime ${{ env.RUNTIME }}
+          --self-contained false
+          --output publish/framework-dependent
+          -p:Version=${{ steps.version.outputs.version }}
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:DebugType=none
+
+      - name: Create zips
         id: zip
         shell: pwsh
         run: |
-          $zip = "TailBlazer-${{ steps.version.outputs.version }}-${{ env.RUNTIME }}.zip"
-          Compress-Archive -Path publish/* -DestinationPath $zip
-          "file=$zip" >> $env:GITHUB_OUTPUT
+          $prefix = "TailBlazer-${{ steps.version.outputs.version }}-${{ env.RUNTIME }}"
+          New-Item -ItemType Directory -Path dist | Out-Null
+          Compress-Archive -Path publish/standalone/* -DestinationPath "dist/$prefix.zip"
+          Compress-Archive -Path publish/framework-dependent/* -DestinationPath "dist/$prefix-framework-dependent.zip"
+          "name=$prefix" >> $env:GITHUB_OUTPUT
 
-      - name: Upload zip
+      - name: Upload zips
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.zip.outputs.file }}
-          path: ${{ steps.zip.outputs.file }}
+          name: ${{ steps.zip.outputs.name }}
+          path: dist/*.zip
 
       - name: Create GitHub release
         if: github.ref_type == 'tag'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "${{ github.ref_name }}" "${{ steps.zip.outputs.file }}" --title "TailBlazer ${{ steps.version.outputs.version }}" --generate-notes
+        shell: pwsh
+        run: |
+          # pwsh does not expand wildcards for native commands, so pass the files explicitly
+          $zips = (Get-ChildItem dist/*.zip).FullName
+          gh release create "${{ github.ref_name }}" @zips --title "TailBlazer ${{ steps.version.outputs.version }}" --generate-notes
