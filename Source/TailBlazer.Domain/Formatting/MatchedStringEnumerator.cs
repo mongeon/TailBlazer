@@ -139,64 +139,26 @@ public class MatchedStringEnumerator : IEnumerable<MatchedString>
 
     private static IEnumerable<MatchedString> Yield(string input, string tomatch)
     {
-
         if (string.IsNullOrEmpty(input))
             yield break;
 
-
-        //TODO: Check whether there are perf-issues with RegEx
-        var split = Regex.Split(input, tomatch, RegexOptions.IgnoreCase);
-
-        var length = split.Length;
-
-        if (length == 0) yield break;
-
-        if (length == 1)
+        var position = 0;
+        foreach (Match match in Regex.Matches(input, tomatch, RegexOptions.IgnoreCase))
         {
-            yield return new MatchedString(input);
-            yield break;
+            if (match.Length == 0)
+                continue;
+
+            if (match.Index > position)
+                yield return new MatchedString(input.Substring(position, match.Index - position));
+
+            //Use the matched value as the user may have searched in a different case
+            yield return new MatchedString(match.Value, true);
+            position = match.Index + match.Length;
         }
 
-        //  int start =0;
-        int currentLength = 0;
-
-        for (int i = 0; i < split.Length; i++)
-        {
-            var current = split[i] ?? string.Empty;
-
-            if (string.IsNullOrEmpty(current))
-            {
-                //Get original string back as the user may have searched in a different case
-                var originalString = input.Substring(currentLength, tomatch.Length);
-                yield return new MatchedString(originalString, true);
-
-                currentLength = current.Length + currentLength + tomatch.Length;
-                if (currentLength + tomatch.Length > input.Length)
-                    yield break;
-            }
-            else if (i > 0 && !string.IsNullOrEmpty(split[i - 1]))
-            {
-                if (currentLength + tomatch.Length > input.Length)
-                    yield break;
-
-                //Get original string back as the user may have searched in a different case
-                var originalString = input.Substring(currentLength, tomatch.Length);
-
-                yield return new MatchedString(originalString, true);
-                yield return new MatchedString(current);
-
-                currentLength = current.Length + currentLength + tomatch.Length;
-            }
-            else
-            {
-                yield return new MatchedString(current);
-                currentLength = current.Length + currentLength;
-            }
-
-        }
+        if (position < input.Length)
+            yield return new MatchedString(input.Substring(position));
     }
-
-
 
     IEnumerator IEnumerable.GetEnumerator()
     {

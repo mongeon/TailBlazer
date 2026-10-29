@@ -3,11 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ImplicitUsings>true</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DynamicData" Version="7.12.1" />
+    <PackageReference Include="DynamicData" />
   </ItemGroup>
 
 </Project>
