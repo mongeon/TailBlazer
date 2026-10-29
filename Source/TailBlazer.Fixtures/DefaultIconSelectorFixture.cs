@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using TailBlazer.Views.Formatting;
 using Xunit;
 

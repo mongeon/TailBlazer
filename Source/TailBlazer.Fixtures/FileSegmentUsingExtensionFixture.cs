@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Subjects;
-using FluentAssertions;
+using AwesomeAssertions;
 using TailBlazer.Domain.FileHandling;
 using TailBlazer.Domain.Infrastructure;
 using Xunit;
@@ -28,7 +28,7 @@ public class FileSegment_UsingExtensionFixture
         using (var indexer = info.WatchFile(refresher).WithSegments().Subscribe(segment => result = segment))
         {
             result.Should().NotBeNull();
-            result.Count.Should().BeGreaterOrEqualTo(2);
+            result.Count.Should().BeGreaterThanOrEqualTo(2);
             result.Segments.Select(fs => fs.Type).Should().Contain(FileSegmentType.Head);
             result.Segments.Select(fs => fs.Type).Should().Contain(FileSegmentType.Tail);
             result.FileLength.Should().Be(info.Length);
@@ -65,7 +65,7 @@ public class FileSegment_UsingExtensionFixture
             refresher.Once();
 
             result.Should().NotBeNull();
-            result.Count.Should().BeGreaterOrEqualTo(2);
+            result.Count.Should().BeGreaterThanOrEqualTo(2);
             result.Segments.Select(fs => fs.Type).Should().Contain(FileSegmentType.Head);
             result.Segments.Select(fs => fs.Type).Should().Contain(FileSegmentType.Tail);
             result.FileLength.Should().Be(info.Length);

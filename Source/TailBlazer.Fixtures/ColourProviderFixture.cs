@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using FluentAssertions;
+using AwesomeAssertions;
 using TailBlazer.Domain.Formatting;
 using TailBlazer.Views.Formatting;
 using Xunit;

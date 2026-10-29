@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.Reactive.Testing;
 using TailBlazer.Domain.FileHandling;
 using Xunit;

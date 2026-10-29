@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.IO;
 using System.Threading;
-using FluentAssertions;
+using AwesomeAssertions;
 using TailBlazer.Domain.FileHandling.Recent;
 using TailBlazer.Domain.Formatting;
 using Xunit;

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Reactive.Subjects;
 using System.Windows;
-using FluentAssertions;
+using AwesomeAssertions;
 using TailBlazer.Views.FileDrop;
 using Xunit;
 

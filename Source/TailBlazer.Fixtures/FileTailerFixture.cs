@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Reactive.Linq;
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.Reactive.Testing;
 using TailBlazer.Domain.FileHandling;
 using TailBlazer.Domain.Infrastructure;
